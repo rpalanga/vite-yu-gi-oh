@@ -8,14 +8,14 @@ export default{
 
   data(){
     return{
-      cards:[],
+      store,
     }
   },
   created(){
     axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0")
     .then(res =>{
       console.log(res.data.data)
-      this.store.data = res.data.data
+      this.store.cards = res.data.data
     })
   },
   components:{
@@ -30,7 +30,7 @@ export default{
 </script>
 
 <template>
-  <h1>ciao</h1>
+  
 
   <CardItem></CardItem>
 
@@ -40,9 +40,7 @@ export default{
 <style lang="scss">
 @use "./styles/newstyle.scss" as *;
 
-h1{
-  color: red;
-}
+
 
 
 
