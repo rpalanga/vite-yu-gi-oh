@@ -1,5 +1,6 @@
 <script>
 import { store } from "../store.js";
+import axios from "axios";
 import CardElement from "./CardElement.vue";
 import AppPagination from "./AppPagination.vue";
 import AppSelect from "./AppSelect.vue"
@@ -19,8 +20,33 @@ export default {
             store,
         }
     },
-    created(){
-        
+    methods: {
+        selectArch() {
+            let urlCard = "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=100&offset=0";
+            //se ho l'archetipo
+            if (this.store.archtypeSelezionato != "0") {
+                urlCard = urlCard + "&archetype=" + this.store.archtypeSelezionato
+                
+            }
+            console.log(urlCard.store)
+
+
+            axios.get(urlCard)
+                .then(res => {
+                    console.log(res.data.data)
+                    this.store.cards = res.data.data;
+                    
+                    this.load = true;
+                })
+
+
+        }
+    },
+    created() {
+        axios.get("https://db.ygoprodeck.com/api/v7/archetypes.php").then(res => {
+            console.log(res.data)
+            this.store.archetypes = res.data
+        })
     }
 }
 
@@ -34,7 +60,7 @@ export default {
     </nav>
     <div class="container-fluid">
 
-        <AppSelect></AppSelect>
+        <AppSelect @select="selectArch()"></AppSelect>
 
         <div>
 
@@ -43,7 +69,7 @@ export default {
         <div class="container">
             <AppPagination></AppPagination>
             <ul>
-                <CardElement v-for="cardId in store.cards" :card="cardId">
+                <CardElement v-for="cardId in store.cards" :card="cardId" >
                 </CardElement>
             </ul>
 
