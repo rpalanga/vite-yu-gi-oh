@@ -1,21 +1,26 @@
 <script>
-import {store} from "../store.js";
+import { store } from "../store.js";
 import CardElement from "./CardElement.vue";
 import AppPagination from "./AppPagination.vue";
+import AppSelect from "./AppSelect.vue"
 
-export default{
+export default {
     name: "CardItem",
 
-    components:{
+    components: {
         CardElement,
-        AppPagination
+        AppPagination,
+        AppSelect
     },
 
 
     data() {
-        return{
+        return {
             store,
         }
+    },
+    created(){
+        
     }
 }
 
@@ -29,18 +34,19 @@ export default{
     </nav>
     <div class="container-fluid">
 
+        <AppSelect></AppSelect>
+
         <div>
-            
+
         </div>
 
         <div class="container">
             <AppPagination></AppPagination>
             <ul>
-                <CardElement 
-                v-for="cardId in store.cards"  :card="cardId">
+                <CardElement v-for="cardId in store.cards" :card="cardId">
                 </CardElement>
             </ul>
-    
+
         </div>
     </div>
 
@@ -49,33 +55,31 @@ export default{
 <style lang="scss">
 @use "../styles/newstyle.scss" as *;
 
-nav{
+nav {
     padding: 20px;
     display: flex;
     align-items: center;
 
-    img{
+    img {
         width: 100px;
     }
 
-    h1{
+    h1 {
         color: black;
         font-size: 40px;
     }
 }
-.container-fluid{
+
+.container-fluid {
     padding: 30px;
     background-color: #CA9249;
 }
 
-ul{
+ul {
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
 
     gap: 25px;
 }
-
 </style>
-
-
